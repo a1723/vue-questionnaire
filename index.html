@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <p>Вопрос</p>
+      <input type="radio" id="one" value="Один" v-model="picked">
+      <label for="one">Один</label>
+      <br>
+      <input type="radio" id="two" value="Два" v-model="picked">
+      <label for="two">Два</label>
+      <br>
+      <input type="radio" id="three" value="Три" v-model="picked">
+      <label for="two">Три</label>
+      <br>
+      <input type="radio" id="four" value="Четыре" v-model="picked">
+      <label for="two">Четыре</label>
+      <br>
+      <p>Выбрано: {{ picked }}</p>
+    </div>
+    
+<!-- версия для разработки, отображает полезные предупреждения в консоли -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    picked: ''
+  }
+})
+
+</script>
+
+</body>
+</html>
