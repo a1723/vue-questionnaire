@@ -8,61 +8,34 @@
 </head>
 <body>
     <div id="app">
-      <Question1><router-link to="/1"><button @click="isHidden = true" v-if="!isHidden" v-bind:newAnswer1="newAnswer">Перейти к тесту</button></router-link></Question1>
-      <router-view></router-view>
+      <p>Вопрос 1</p>
+      <input type="radio" id="one" value="Один" v-model="picked">
+      <label for="one">Один</label>
+      <br>
+      <input type="radio" id="two" value="Два" v-model="picked">
+      <label for="two">Два</label>
+      <br>
+      <input type="radio" id="three" value="Три" v-model="picked">
+      <label for="two">Три</label>
+      <br>
+      <input type="radio" id="four" value="Четыре" v-model="picked">
+      <label for="two">Четыре</label>
+      <br>
+      <p>Выбрано: {{ picked }}</p>
+      <button @click="nextQuestion">Принять ответ и перейти к следующему вопросу</button>
     </div>
-    
+
 <!-- версия для разработки, отображает полезные предупреждения в консоли -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
 
 <script>
-
-// 0. If using a module system, call Vue.use(VueRouter)
-
-// 1. Define route components.
-// These can be imported from other files
-Vue.component('Question1', {
-  props: ['newAnswer1'],
-  template: '<div><p>Вопрос 1</p><input type="radio" id="one" value="Один" v-model="newAnswer"><label for="one">Один</label><br><input type="radio" id="two"value="Два" v-model="newAnswer"><label for="two">Два</label><br><input type="radio" id="three" value="Три" v-model="newAnswer"><label for="three">Три</label><br>  <input type="radio" id="four" value="Четыре" v-model="newAnswer"><label for="four">Четыре</label><br><p>Выбрано: {{ newAnswer }}</p><router-link to="/2"><button @click="nextQuestion">Ответить</button></router-link></div>'
-})
-const Question2 = { template: '<div><p>Вопрос 2</p><input type="radio" id="one" value="Один" v-model="newAnswer"><label for="one">Один</label><br><input type="radio" id="two"value="Два" v-model="newAnswer"><label for="two">Два</label><br><input type="radio" id="three" value="Три" v-model="newAnswer"><label for="three">Три</label><br>  <input type="radio" id="four" value="Четыре" v-model="newAnswer"><label for="four">Четыре</label><br><p>Выбрано: {{ newAnswer }}</p><router-link to="/3"><button @click="nextQuestion">Ответить</button></router-link></div>' }
-const Question3 = { template: '<div><p>Вопрос 3</p><input type="radio" id="one" value="Один" v-model="newAnswer"><label for="one">Один</label><br><input type="radio" id="two"value="Два" v-model="newAnswer"><label for="two">Два</label><br><input type="radio" id="three" value="Три" v-model="newAnswer"><label for="three">Три</label><br>  <input type="radio" id="four" value="Четыре" v-model="newAnswer"><label for="four">Четыре</label><br><p>Выбрано: {{ newAnswer }}</p><router-link to="/4"><button @click="nextQuestion">Ответить</button></router-link></div>' }
-const Question4 = { template: '<div><p>Вопрос 4</p><input type="radio" id="one" value="Один" v-model="newAnswer"><label for="one">Один</label><br><input type="radio" id="two"value="Два" v-model="newAnswer"><label for="two">Два</label><br><input type="radio" id="three" value="Три" v-model="newAnswer"><label for="three">Три</label><br>  <input type="radio" id="four" value="Четыре" v-model="newAnswer"><label for="four">Четыре</label><br><p>Выбрано: {{ newAnswer }}</p><router-link to="/5"><button @click="nextQuestion">Ответить</button></router-link></div>' }
-const Question5 = { template: '<div><p>Вопрос 5</p><input type="radio" id="one" value="Один" v-model="newAnswer"><label for="one">Один</label><br><input type="radio" id="two"value="Два" v-model="newAnswer"><label for="two">Два</label><br><input type="radio" id="three" value="Три" v-model="newAnswer"><label for="three">Три</label><br>  <input type="radio" id="four" value="Четыре" v-model="newAnswer"><label for="four">Четыре</label><br><p>Выбрано: {{ newAnswer }}</p><router-link to="/"><button @click="nextQuestion">Ответить</button></router-link></div>' }
-
-
-// 2. Define some routes
-// Each route should map to a component. The "component" can
-// either be an actual component constructor created via
-// Vue.extend(), or just a component options object.
-const routes = [
-  { path: '/1', name: Question1, component: Question1 },
-  { path: '/2', component: Question2 },
-  { path: '/3', component: Question3 },
-  { path: '/4', component: Question4 },
-  { path: '/5', component: Question5 },
-]
-
-// 3. Create the router instance and pass the `routes` option
-// You can pass in additional options here, but let's
-// keep it simple for now.
-const router = new VueRouter({
-  routes: routes
-})
-
 var app = new Vue({
   el: '#app',
-  router: router,
-  data() {
-    return {
+  data: {
+    picked: '',
     answers: [],
-    newAnswer: '123',
-    isHidden: false
-    }
   },
-  
-
   mounted() {
     if (localStorage.getItem('answers')) {
       try {
@@ -74,10 +47,10 @@ var app = new Vue({
   },
   methods: {
     nextQuestion() {
-      console.log(this.newAnswer);
-      this.answers.push(this.newAnswer);
+      console.log(this.picked);
+      this.answers.push(this.picked);
       console.log(this.answers);
-      this.newAnswer = '';
+      this.picked = '';
       this.saveAnswers();
     },
     saveAnswers() {
