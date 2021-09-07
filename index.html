@@ -47,13 +47,14 @@ var app = new Vue({
   },
   methods: {
     nextQuestion() {
-      console.log(this.picked);
+      if (this.picked != ''){
       this.answers.push(this.picked);
+      }
+      console.log(this.picked);
       console.log(this.answers);
-      this.picked = '';
-      this.saveAnswers();
+      this.saveAnswersToLocalStorage();
     },
-    saveAnswers() {
+    saveAnswersToLocalStorage() {
       const parsed = JSON.stringify(this.answers);
       console.log(parsed);
       localStorage.setItem('answers', parsed);
